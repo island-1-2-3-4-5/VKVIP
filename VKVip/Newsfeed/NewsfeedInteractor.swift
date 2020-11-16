@@ -31,6 +31,8 @@ class NewsfeedInteractor: NewsfeedBusinessLogicProtocol {
 
     case .getNewsfeed:
         fetcher.getFeed { [weak self] (feedResponce) in // [weak self] - используется при  работе с замыканиями для избежания утечки памяти
+          
+
             guard let feedResponce = feedResponce else {return}
             
             // делаем запрос в презентер

@@ -45,7 +45,7 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol {
   override func viewDidLoad() {
     super.viewDidLoad()
     setup()
-    
+    // Регистрируем ячейку
     table.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
     
     // делаем запрос на получение новостей чтобы заполнить наш массив feedViewVodel
