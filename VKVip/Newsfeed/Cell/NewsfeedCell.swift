@@ -26,7 +26,7 @@ class NewsfeedCell: UITableViewCell {
     
     static let reuseId = "NewsfeedCell"
     
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var iconImageView: WebImageView!
     @IBOutlet weak var namelabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var postlabel: UILabel!
@@ -45,6 +45,7 @@ class NewsfeedCell: UITableViewCell {
     // передаем данные переменным из протокола FeedCellViewModel
     // Этот метод будем вызывать в NewsfeedViewController в cellForRowAt
     func set(viewModel: FeedCellViewModelProtocol){
+        iconImageView.set(imageURL: viewModel.iconUrlString)
         namelabel.text = viewModel.name
         dateLabel.text = viewModel.date
         postlabel.text = viewModel.text

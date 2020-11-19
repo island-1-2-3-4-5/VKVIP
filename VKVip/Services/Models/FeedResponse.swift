@@ -27,10 +27,25 @@ struct FeedItem: Decodable {
     let likes: CountableItem?
     let reposts: CountableItem?
     let views: CountableItem?
+    let attachments: [Attachment]?
 }
 
 struct CountableItem: Decodable {
     let count: Int
+}
+
+struct Attachment: Codable{
+    let photo: Photo?
+}
+
+struct Photo: Codable {
+    let sizes: [PhotoSize]
+}
+struct PhotoSize: Codable {
+    let type: String
+    let url: String
+    let width: Int
+    let height: Int
 }
 
 protocol ProfileRepresentableProtocol {

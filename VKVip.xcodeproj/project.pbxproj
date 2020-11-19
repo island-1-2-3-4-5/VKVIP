@@ -28,6 +28,7 @@
 		B040BA36256257A700145A47 /* NewsfeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040BA34256257A700145A47 /* NewsfeedCell.swift */; };
 		B040BA37256257A700145A47 /* NewsfeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B040BA35256257A700145A47 /* NewsfeedCell.xib */; };
 		B040BA42256257D000145A47 /* UIViewController + Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040BA41256257D000145A47 /* UIViewController + Storyboard.swift */; };
+		B094C934256299130074569E /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B094C933256299130074569E /* WebImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 		B040BA34256257A700145A47 /* NewsfeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedCell.swift; sourceTree = "<group>"; };
 		B040BA35256257A700145A47 /* NewsfeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsfeedCell.xib; sourceTree = "<group>"; };
 		B040BA41256257D000145A47 /* UIViewController + Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController + Storyboard.swift"; sourceTree = "<group>"; };
+		B094C933256299130074569E /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				B040BA41256257D000145A47 /* UIViewController + Storyboard.swift */,
+				B094C933256299130074569E /* WebImageView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				B040BA312562579100145A47 /* NewsfeedViewController.swift in Sources */,
 				B040BA42256257D000145A47 /* UIViewController + Storyboard.swift in Sources */,
 				B040BA2B2562579100145A47 /* NewsfeedPresenter.swift in Sources */,
+				B094C934256299130074569E /* WebImageView.swift in Sources */,
 				B040BA1E2562577700145A47 /* AuthViewController.swift in Sources */,
 				B040BA122562574900145A47 /* NetworkService.swift in Sources */,
 				B040BA2C2562579100145A47 /* NewsfeedModels.swift in Sources */,
