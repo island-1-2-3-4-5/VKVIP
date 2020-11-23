@@ -2,7 +2,7 @@
 //  WebImageView.swift
 //  VKVip
 //
-//  Created by Роман on 16.11.2020.
+//  Created by Роман on 19.11.2020.
 //
 
 import UIKit
@@ -10,8 +10,8 @@ import UIKit
 // этот класс привязан к UIImageView в NewsfeedCell
 class WebImageView: UIImageView {
     
-    func set(imageURL: String){
-        guard let url = URL(string: imageURL) else { return }
+    func set(imageURL: String?){
+        guard let imageURL = imageURL, let url = URL(string: imageURL) else { return }
         
         
         //Проверка на кэш изображения

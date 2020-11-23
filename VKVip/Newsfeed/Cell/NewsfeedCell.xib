@@ -44,7 +44,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KMz-8e-jhF">
-                        <rect key="frame" x="9" y="55" width="356" height="104"/>
+                        <rect key="frame" x="9" y="55" width="356" height="39"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -130,6 +130,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SOP-uH-34c" customClass="WebImageView" customModule="VKVip" customModuleProvider="target">
+                        <rect key="frame" x="9" y="90" width="356" height="70"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -138,6 +142,7 @@
                 <outlet property="iconImageView" destination="Rdj-N9-JGz" id="hLa-xN-B9t"/>
                 <outlet property="likesLabel" destination="OAh-t3-UPY" id="Xdk-Qq-94h"/>
                 <outlet property="namelabel" destination="azg-Xw-N6d" id="031-xY-0iR"/>
+                <outlet property="postImageView" destination="SOP-uH-34c" id="Ygb-qu-tm2"/>
                 <outlet property="postlabel" destination="KMz-8e-jhF" id="Jna-Pu-wsR"/>
                 <outlet property="shareslabel" destination="OFb-hE-D8C" id="lFA-Ws-czX"/>
                 <outlet property="viewsLabel" destination="5A2-wL-S7a" id="R6p-e6-y9h"/>

@@ -1,9 +1,9 @@
 //
-//  NewsfeedModels.swift
-//  VKNewsFeed
+//  FeedResponse.swift
+//  VKVip
 //
-//  Created by Алексей Пархоменко on 15/03/2019.
-//  Copyright (c) 2019 Алексей Пархоменко. All rights reserved.
+//  Created by Роман Монахов on 18/11/2020.
+//  Copyright © 2020 Роман Монахов. All rights reserved.
 //
 
 import UIKit
@@ -43,7 +43,18 @@ struct FeedViewModel {
         var comments: String?
         var shares: String?
         var views: String?
+        var photoAttachement: FeedCellPhotoAttachementViewModelProtocol?
+
     }
+    
+    
+    struct FeedCellPhotoAttachement: FeedCellPhotoAttachementViewModelProtocol {
+        var photoUrlString: String?
+        var height: Int
+        var width: Int
+            
+    }
+    
     
     // в новостной ленте присутствует не одна ячейка, поэтомк делаем массив
     let cells: [Cell]

@@ -1,9 +1,9 @@
 //
-//  NewsfeedCell.swift
-//  VKNewsFeed
+//  FeedResponse.swift
+//  VKVip
 //
-//  Created by Алексей Пархоменко on 19/03/2019.
-//  Copyright © 2019 Алексей Пархоменко. All rights reserved.
+//  Created by Роман Монахов on 18/11/2020.
+//  Copyright © 2020 Роман Монахов. All rights reserved.
 //
 
 import Foundation
@@ -19,7 +19,15 @@ protocol FeedCellViewModelProtocol {
     var comments: String? { get }
     var shares: String? { get }
     var views: String? { get }
+    var photoAttachement: FeedCellPhotoAttachementViewModelProtocol? { get }
     
+}
+
+// несет в себе данные по фотографиям
+protocol FeedCellPhotoAttachementViewModelProtocol {
+    var photoUrlString: String? { get }
+    var height: Int { get }
+    var width: Int { get }
 }
 
 class NewsfeedCell: UITableViewCell {
@@ -30,6 +38,7 @@ class NewsfeedCell: UITableViewCell {
     @IBOutlet weak var namelabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var postlabel: UILabel!
+    @IBOutlet weak var postImageView: WebImageView!
     @IBOutlet weak var likesLabel: UILabel!
     @IBOutlet weak var commentsLabel: UILabel!
     @IBOutlet weak var shareslabel: UILabel!
@@ -37,6 +46,10 @@ class NewsfeedCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
+        iconImageView.layer.cornerRadius = iconImageView.frame.width / 2
+        iconImageView.clipsToBounds = true
     }
     
     
@@ -53,6 +66,13 @@ class NewsfeedCell: UITableViewCell {
         commentsLabel.text = viewModel.comments
         shareslabel.text = viewModel.shares
         viewsLabel.text = viewModel.views
+        
+        if let photoAttachement = viewModel.photoAttachement {
+            postImageView.set(imageURL: photoAttachement.photoUrlString)
+            postImageView.isHidden = false
+        } else {
+            postImageView.isHidden = true
+        }
     }
     
 }

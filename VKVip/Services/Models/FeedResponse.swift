@@ -1,9 +1,9 @@
 //
 //  FeedResponse.swift
-//  VKNewsFeed
+//  VKVip
 //
-//  Created by Алексей Пархоменко on 08/03/2019.
-//  Copyright © 2019 Алексей Пархоменко. All rights reserved.
+//  Created by Роман Монахов on 18/11/2020.
+//  Copyright © 2020 Роман Монахов. All rights reserved.
 //
 
 import Foundation
@@ -27,7 +27,7 @@ struct FeedItem: Decodable {
     let likes: CountableItem?
     let reposts: CountableItem?
     let views: CountableItem?
-    let attachments: [Attachment]?
+    let attachments: [Attachment]? // фотографии, видеозаписи, ссылки
 }
 
 struct CountableItem: Decodable {
@@ -35,15 +35,39 @@ struct CountableItem: Decodable {
 }
 
 struct Attachment: Codable{
-    let photo: Photo?
+    let photo: Photo? // фотография поста
 }
 
 struct Photo: Codable {
-    let sizes: [PhotoSize]
+    let sizes: [PhotoSize] // у фотки есть размер
+    
+    var height: Int {
+        return getProperSize().height
+    }
+    
+    var width: Int {
+        return getProperSize().width
+    }
+    // адрес изображения для предпросмотра
+    var srcBIG: String{
+        return getProperSize().url
+    }
+    
+    // из всех фоток нам нужны только с типом х
+    private func  getProperSize() -> PhotoSize {
+        if let sizeX = sizes.first(where: {$0.type == "x"}) {
+            return sizeX
+        } else if let fallBackSize = sizes.last{
+            // это если вдруг не оказалось типа х
+            return fallBackSize
+        } else {
+            return PhotoSize(type: "wrongImage", url: "wrongImage", width: 0, height: 0)
+        }
+    }
 }
 struct PhotoSize: Codable {
-    let type: String
-    let url: String
+    let type: String // тип - формат фото
+    let url: String // ссылка на фото
     let width: Int
     let height: Int
 }
