@@ -50,6 +50,12 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol {
     
     // делаем запрос на получение новостей чтобы заполнить наш массив feedViewVodel
     interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsfeed)
+    
+    
+    
+    table.separatorStyle = .none
+    table.backgroundColor = .clear
+    view.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.7645775639, blue: 0.6431372762, alpha: 1)
   }
   
   func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
