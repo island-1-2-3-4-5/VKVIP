@@ -19,12 +19,25 @@ protocol FeedCellViewModelProtocol {
     var comments: String? { get }
     var shares: String? { get }
     var views: String? { get }
-    var photoAttachement: FeedCellPhotoAttachementViewModelProtocol? { get }
+    var photoAttachment: FeedCellPhotoAttachmentViewModelProtocol? { get }
+    
+    // свойство которое будет хранить размеры для отрисовки вью
+    var sizes: FeedCellSizes { get }
+    
+}
+
+//   этот протокол описывает размеры вью
+protocol FeedCellSizes {
+    var postLabelFrame: CGRect { get }
+    var attachementFrame: CGRect { get }
+    
+    var bottomView: CGRect { get }
+    var totalHeight: CGFloat { get } // надо для heightForRowAt
     
 }
 
 // несет в себе данные по фотографиям
-protocol FeedCellPhotoAttachementViewModelProtocol {
+protocol FeedCellPhotoAttachmentViewModelProtocol {
     var photoUrlString: String? { get }
     var height: Int { get }
     var width: Int { get }
@@ -44,6 +57,7 @@ class NewsfeedCell: UITableViewCell {
     @IBOutlet weak var commentsLabel: UILabel!
     @IBOutlet weak var shareslabel: UILabel!
     @IBOutlet weak var viewsLabel: UILabel!
+    @IBOutlet weak var bottomView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -76,8 +90,14 @@ class NewsfeedCell: UITableViewCell {
         shareslabel.text = viewModel.shares
         viewsLabel.text = viewModel.views
         
-        if let photoAttachement = viewModel.photoAttachement {
-            postImageView.set(imageURL: photoAttachement.photoUrlString)
+        
+        // В получаемой модели содержатся размеры фотографий, от них мы и будем регулировать размер вью
+        postlabel.frame = viewModel.sizes.postLabelFrame
+        postImageView.frame = viewModel.sizes.attachementFrame
+        bottomView.frame = viewModel.sizes.bottomView
+        
+        if let photoAttachment = viewModel.photoAttachment {
+            postImageView.set(imageURL: photoAttachment.photoUrlString)
             postImageView.isHidden = false
         } else {
             postImageView.isHidden = true

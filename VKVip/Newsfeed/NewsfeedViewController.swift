@@ -82,7 +82,7 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = feedViewModel.cells[indexPath.row]
         // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
         // модель будем создавать в NewsfeedModels
-        cell.set(viewModel: cellViewModel)
+        cell.set(viewModel: cellViewModel) 
         
         return cell
     }
@@ -90,7 +90,9 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
 
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 212
+        //из модели вытаскиваем размер по строчно
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        return cellViewModel.sizes.totalHeight
     }
     
     

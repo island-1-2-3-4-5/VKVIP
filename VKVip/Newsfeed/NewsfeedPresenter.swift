@@ -17,6 +17,10 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
     
     
     
+    // создаем и инициализируем обьект, подписанный под протокол, с помощью которого мы смогли бы считать размер ячеек
+    var cellLayoutCalculator: FeedCellLayoutCalculatorProtocol = FeedCellLayoutCalculator()
+    
+    
     // Создаем dateFORMATTER
     let dateFormatter: DateFormatter = {
         let dt = DateFormatter()
@@ -59,7 +63,9 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
         // Создаем объект профайла для заполнения названия поста, даты создания и группы
         let profile = self.profile(for: feedItem.sourceId, profiles: profiles, groups: groups)
         
-        let photoAttachement = self.photoAttachement(feedItem: feedItem)
+        let photoAttachment = self.photoAttachment(feedItem: feedItem) // заполняем фотки
+        // генерируем размеры вью исходя из текста и размеров изображения
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment)
         
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
@@ -72,7 +78,8 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
                                        comments: String(feedItem.comments?.count ?? 0),
                                        shares: String(feedItem.reposts?.count ?? 0),
                                        views: String(feedItem.views?.count ?? 0),
-                                       photoAttachement: photoAttachement)
+                                       photoAttachment: photoAttachment,
+                                       sizes: sizes)
     }
     
     
@@ -90,13 +97,13 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
     
     
     
-    private func photoAttachement(feedItem: FeedItem) -> FeedViewModel.FeedCellPhotoAttachement? {
+    private func photoAttachment(feedItem: FeedItem) -> FeedViewModel.FeedCellPhotoAttachment? {
         guard let photos = feedItem.attachments?.compactMap({ (attachement) in
             attachement.photo
         }), let firstPhoto = photos.first else {
             return nil
         }
         
-        return FeedViewModel.FeedCellPhotoAttachement.init(photoUrlString: firstPhoto.srcBIG, height: firstPhoto.height, width: firstPhoto.width)
+        return FeedViewModel.FeedCellPhotoAttachment.init(photoUrlString: firstPhoto.srcBIG, height: firstPhoto.height, width: firstPhoto.width)
     }
 }

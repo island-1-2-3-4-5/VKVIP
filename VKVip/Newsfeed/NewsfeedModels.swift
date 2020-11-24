@@ -2,8 +2,7 @@
 //  FeedResponse.swift
 //  VKVip
 //
-//  Created by Роман Монахов on 18/11/2020.
-//  Copyright © 2020 Роман Монахов. All rights reserved.
+//  Created by Роман on 24.11.2020.
 //
 
 import UIKit
@@ -43,12 +42,14 @@ struct FeedViewModel {
         var comments: String?
         var shares: String?
         var views: String?
-        var photoAttachement: FeedCellPhotoAttachementViewModelProtocol?
+        var photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?
+        var sizes: FeedCellSizes
+
 
     }
     
     
-    struct FeedCellPhotoAttachement: FeedCellPhotoAttachementViewModelProtocol {
+    struct FeedCellPhotoAttachment: FeedCellPhotoAttachmentViewModelProtocol {
         var photoUrlString: String?
         var height: Int
         var width: Int
