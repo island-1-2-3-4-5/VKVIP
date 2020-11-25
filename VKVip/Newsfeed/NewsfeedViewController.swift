@@ -48,6 +48,12 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol {
     // Регистрируем ячейку
     table.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
     
+    
+    // Регистрируем ячейку сверстанную из кода
+    table.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
+    
+    
+    
     // делаем запрос на получение новостей чтобы заполнить наш массив feedViewVodel
     interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsfeed)
     
@@ -76,13 +82,19 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCell.reuseId, for: indexPath) as! NewsfeedCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCell.reuseId, for: indexPath) as! NewsfeedCell
         
-        // вытаскиваем нашу модель в ячейку
-        let cellViewModel = feedViewModel.cells[indexPath.row]
-        // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
-        // модель будем создавать в NewsfeedModels
-        cell.set(viewModel: cellViewModel) 
+//        // вытаскиваем нашу модель в ячейку
+//        let cellViewModel = feedViewModel.cells[indexPath.row]
+//        // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
+//        // модель будем создавать в NewsfeedModels
+//        cell.set(viewModel: cellViewModel)
+        
+        
+        // делаем кодом
+        let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCodeCell.reuseId, for: indexPath) as! NewsfeedCodeCell
+        
+        cell.textLabel?.text = "index \(indexPath.row)"
         
         return cell
     }
@@ -92,7 +104,10 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //из модели вытаскиваем размер по строчно
         let cellViewModel = feedViewModel.cells[indexPath.row]
-        return cellViewModel.sizes.totalHeight
+//        return cellViewModel.sizes.totalHeight
+        
+        
+        return 212
     }
     
     

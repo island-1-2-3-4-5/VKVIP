@@ -22,4 +22,6 @@ extension String {
         
         return ceil(size.height) // округляем значение
     }
+    
+    
 }

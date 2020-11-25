@@ -81,6 +81,7 @@ class NewsfeedCell: UITableViewCell {
         
         backgroundColor = .clear
         selectionStyle = .none
+        
     }
     
     
@@ -111,5 +112,11 @@ class NewsfeedCell: UITableViewCell {
             postImageView.isHidden = true
         }
     }
+    
+}
+
+
+extension UIView{
+    
     
 }
