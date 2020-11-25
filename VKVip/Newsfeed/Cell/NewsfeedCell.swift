@@ -31,7 +31,7 @@ protocol FeedCellSizes {
     var postLabelFrame: CGRect { get }
     var attachementFrame: CGRect { get }
     
-    var bottomView: CGRect { get }
+    var bottomViewFrame: CGRect { get }
     var totalHeight: CGFloat { get } // надо для heightForRowAt
     
 }
@@ -58,6 +58,14 @@ class NewsfeedCell: UITableViewCell {
     @IBOutlet weak var shareslabel: UILabel!
     @IBOutlet weak var viewsLabel: UILabel!
     @IBOutlet weak var bottomView: UIView!
+    
+    
+    
+    //Переиспользование ячеек
+    override func prepareForReuse() {
+        iconImageView.set(imageURL: nil)
+        postImageView.set(imageURL: nil)
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -94,7 +102,7 @@ class NewsfeedCell: UITableViewCell {
         // В получаемой модели содержатся размеры фотографий, от них мы и будем регулировать размер вью
         postlabel.frame = viewModel.sizes.postLabelFrame
         postImageView.frame = viewModel.sizes.attachementFrame
-        bottomView.frame = viewModel.sizes.bottomView
+        bottomView.frame = viewModel.sizes.bottomViewFrame
         
         if let photoAttachment = viewModel.photoAttachment {
             postImageView.set(imageURL: photoAttachment.photoUrlString)
