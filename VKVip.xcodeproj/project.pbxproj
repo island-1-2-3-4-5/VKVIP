@@ -29,6 +29,7 @@
 		B040BA36256257A700145A47 /* NewsfeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040BA34256257A700145A47 /* NewsfeedCell.swift */; };
 		B040BA37256257A700145A47 /* NewsfeedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B040BA35256257A700145A47 /* NewsfeedCell.xib */; };
 		B040BA42256257D000145A47 /* UIViewController + Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B040BA41256257D000145A47 /* UIViewController + Storyboard.swift */; };
+		B0500E11256FBD850009EBA2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0500E10256FBD850009EBA2 /* Constants.swift */; };
 		B0607181256E3BF9005CBF0A /* String + Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0607180256E3BF9005CBF0A /* String + Height.swift */; };
 		B0607184256E80A7005CBF0A /* NewsfeedCodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0607183256E80A7005CBF0A /* NewsfeedCodeCell.swift */; };
 		B0607187256E95A7005CBF0A /* Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0607186256E95A7005CBF0A /* Constraints.swift */; };
@@ -62,6 +63,7 @@
 		B040BA34256257A700145A47 /* NewsfeedCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsfeedCell.swift; sourceTree = "<group>"; };
 		B040BA35256257A700145A47 /* NewsfeedCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewsfeedCell.xib; sourceTree = "<group>"; };
 		B040BA41256257D000145A47 /* UIViewController + Storyboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController + Storyboard.swift"; sourceTree = "<group>"; };
+		B0500E10256FBD850009EBA2 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0607180256E3BF9005CBF0A /* String + Height.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Height.swift"; sourceTree = "<group>"; };
 		B0607183256E80A7005CBF0A /* NewsfeedCodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsfeedCodeCell.swift; sourceTree = "<group>"; };
 		B0607186256E95A7005CBF0A /* Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constraints.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				B040BA34256257A700145A47 /* NewsfeedCell.swift */,
 				B02D39A3256D072000132D0F /* NewsFeedCellLayoutCalculator.swift */,
 				B0607183256E80A7005CBF0A /* NewsfeedCodeCell.swift */,
+				B0500E10256FBD850009EBA2 /* Constants.swift */,
 				B040BA35256257A700145A47 /* NewsfeedCell.xib */,
 			);
 			path = Cell;
@@ -324,6 +327,7 @@
 				B040BA42256257D000145A47 /* UIViewController + Storyboard.swift in Sources */,
 				B040BA2B2562579100145A47 /* NewsfeedPresenter.swift in Sources */,
 				B094C934256299130074569E /* WebImageView.swift in Sources */,
+				B0500E11256FBD850009EBA2 /* Constants.swift in Sources */,
 				B0607184256E80A7005CBF0A /* NewsfeedCodeCell.swift in Sources */,
 				B0607187256E95A7005CBF0A /* Constraints.swift in Sources */,
 				B040BA1E2562577700145A47 /* AuthViewController.swift in Sources */,

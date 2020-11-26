@@ -94,7 +94,11 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         // делаем кодом
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCodeCell.reuseId, for: indexPath) as! NewsfeedCodeCell
         
-        cell.textLabel?.text = "index \(indexPath.row)"
+        // вытаскиваем нашу модель в ячейку
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
+        // модель будем создавать в NewsfeedModels
+        cell.set(viewModel: cellViewModel)
         
         return cell
     }
@@ -104,10 +108,8 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         //из модели вытаскиваем размер по строчно
         let cellViewModel = feedViewModel.cells[indexPath.row]
-//        return cellViewModel.sizes.totalHeight
+        return cellViewModel.sizes.totalHeight
         
-        
-        return 212
     }
     
     
