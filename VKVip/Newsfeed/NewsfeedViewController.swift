@@ -12,7 +12,9 @@ protocol NewsfeedDisplayLogicProtocol: class {
   func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData)
 }
 
-class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol {
+class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol, NewsfeedCodeCellDelegate {
+
+    
 
   var interactor: NewsfeedBusinessLogicProtocol?
   var router: (NSObjectProtocol & NewsfeedRoutingLogicProtocol)?
@@ -52,16 +54,16 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol {
     // Регистрируем ячейку сверстанную из кода
     table.register(NewsfeedCodeCell.self, forCellReuseIdentifier: NewsfeedCodeCell.reuseId)
     
-    
+    table.separatorStyle = .none
+    table.backgroundColor = .clear
+    view.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.7645775639, blue: 0.6431372762, alpha: 1)
     
     // делаем запрос на получение новостей чтобы заполнить наш массив feedViewVodel
     interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.getNewsfeed)
     
     
     
-    table.separatorStyle = .none
-    table.backgroundColor = .clear
-    view.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.7645775639, blue: 0.6431372762, alpha: 1)
+
   }
   
   func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData) {
@@ -73,6 +75,14 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol {
         table.reloadData()
     }
   }
+    
+    
+    
+    
+    //MARK: - NewsfeedCodeCellDelegate - протокол ячейки
+    func revealPost(for cell: NewsfeedCodeCell) {
+        print("hi")
+    }
 }
 
 extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
@@ -82,15 +92,9 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     
 //        let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCell.reuseId, for: indexPath) as! NewsfeedCell
-        
-//        // вытаскиваем нашу модель в ячейку
-//        let cellViewModel = feedViewModel.cells[indexPath.row]
-//        // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
-//        // модель будем создавать в NewsfeedModels
-//        cell.set(viewModel: cellViewModel)
-        
-        
+
         // делаем кодом
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsfeedCodeCell.reuseId, for: indexPath) as! NewsfeedCodeCell
         
@@ -99,6 +103,8 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
         // модель будем создавать в NewsfeedModels
         cell.set(viewModel: cellViewModel)
+        
+        cell.delegate = self
         
         return cell
     }

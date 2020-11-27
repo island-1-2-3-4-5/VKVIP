@@ -12,11 +12,13 @@ import UIKit
 
 
 struct Sizes: FeedCellSizes {
-    var postLabelFrame: CGRect
-    var attachementFrame: CGRect
     
+    var postLabelFrame: CGRect
+    var moreTextButtonFrame: CGRect
+    var attachementFrame: CGRect
     var bottomViewFrame: CGRect
     var totalHeight: CGFloat
+
 }
 
 
@@ -39,11 +41,14 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
     // вызывается в cellViewModel через протокол
     func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?) -> FeedCellSizes {
         
+        // если эта переменная true, то будем в нашем посте отображать кнопку показать больше
+        var showMoreTextButton = false
+        
         // чтобы точно вычесть размеры cardView, надо вычесть из contentView, размером с шириу экрана, отступы
         let cardViewWidth = screenWidth - Constants.cardInserts.left - Constants.cardInserts.right
         
         
-        //MARK: Работа с postLabelFrame
+        //MARK:- PostLabelFrame
         // расположение текста
         var postLabelFrame = CGRect(origin: CGPoint(x: Constants.postLabelInserts.left,
                                                     y: Constants.postLabelInserts.top), // origin - координаты (x = 8, y = 52)
@@ -55,18 +60,41 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
             
             // считаем ширину и высоту текста
             let width = cardViewWidth - Constants.postLabelInserts.left - Constants.postLabelInserts.right // Ширина postLabel
-            let height = text.height(width: width, font: Constants.postLabelFont) // пишем функцию height в extension для string в HELPERS
+            var height = text.height(width: width, font: Constants.postLabelFont) // пишем функцию height в extension для string в HELPERS
+            
+            
+            
+            // максимальная высота которую можно отображать до кнопки скрыть
+            let limitHeight = Constants.postLabelFont.lineHeight * Constants.minifiedPostLimitLines
+            
+            // если есть превышение по строкам, то показываем кнопку
+            if height > limitHeight {
+                height = Constants.postLabelFont.lineHeight * Constants.minifiedPostLines
+                showMoreTextButton = true
+            }
             
             postLabelFrame.size = CGSize(width: width, height: height)
         }
         
         
         
+        // MARK: - MoreTextButtonFrame
         
-        //MARK: Работа с attachementFrame
+        var moreTextButtonSize = CGSize.zero
         
-        // если текстовое поле развно 0, то фотография будет начинаться от верха иначе от низа текстового поля + отступ
-        let attachmentTop = postLabelFrame.size == CGSize.zero ? Constants.postLabelInserts.top : postLabelFrame.maxY + Constants.postLabelInserts.bottom
+        if showMoreTextButton {
+            moreTextButtonSize = Constants.moreTextButtonSize
+        }
+        
+        let moreTextButtonOrigin = CGPoint(x: Constants.moreTextButtonInsets.left, y: postLabelFrame.maxY)
+        
+        let moreTextButtonFrame = CGRect(origin: moreTextButtonOrigin, size: moreTextButtonSize) // размер и расположение
+        
+        
+        //MARK: - AttachementFrame
+        
+        // если текстовое поле развно 0, то фотография будет начинаться от верха иначе от низа кнопки "показать больше" + отступ
+        let attachmentTop = postLabelFrame.size == CGSize.zero ? Constants.postLabelInserts.top : moreTextButtonFrame.maxY + Constants.postLabelInserts.bottom
         // расположение фотки
         var attachementFrame = CGRect(origin: CGPoint(x: 0, y: attachmentTop), size: CGSize.zero) // size - вычисляем ниже
         
@@ -79,7 +107,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         
         
-        //MARK: Работа с bottomViewFrame
+        //MARK:- BottomViewFrame
         // расположение элементов над bottomView
         let bottomViewTop = max(postLabelFrame.maxY, attachementFrame.maxY)
 
@@ -91,13 +119,14 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         
         
-        //MARK: Работа с totalHeight
+        //MARK:- TotalHeight
 
         // bottomViewFrame.maxY - самый нижний элемент, Constants.cardInserts.bottom - отступ снизу
         let totalHeight = bottomViewFrame.maxY + Constants.cardInserts.bottom
         
         
-        return Sizes(postLabelFrame: postLabelFrame, // postLabelFrame - возвращаем в ячейку NewsfeedCell в функцию set
+        return Sizes(postLabelFrame: postLabelFrame,
+                     moreTextButtonFrame: moreTextButtonFrame,
                      attachementFrame: attachementFrame,
                      bottomViewFrame: bottomViewFrame,
                      totalHeight: totalHeight)
