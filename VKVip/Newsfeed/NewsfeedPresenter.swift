@@ -38,11 +38,11 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
     switch response {
 
 //MARK: Сюда приходят данные
-    case .presentNewsfeed(feed: let feed): // let feed - это ассоциативное значение, которое мы передали ранее
+    case .presentNewsfeed(feed: let feed, let revealdedPostIds): // let feed - это ассоциативное значение, которое мы передали ранее
         
         let cells = feed.items.map { (feedItem) in
             // эта функция конвертирует данные из сети(FeedResponse) в данные для ячейки
-            cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups)
+            cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealdedPostIds: revealdedPostIds)
             
         }
     // инициализируем объект модели
@@ -59,18 +59,27 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
     
     //MARK: - Работа с ячейками
     // эта функция конвертирует данные из сети(FeedResponse) в данные для ячейки
-    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group]) -> FeedViewModel.Cell {
+    private func cellViewModel(from feedItem: FeedItem, profiles: [Profile], groups: [Group], revealdedPostIds: [Int]) -> FeedViewModel.Cell {
         // Создаем объект профайла для заполнения названия поста, даты создания и группы
         let profile = self.profile(for: feedItem.sourceId, profiles: profiles, groups: groups)
         
         let photoAttachment = self.photoAttachment(feedItem: feedItem) // заполняем фотки
         // генерируем размеры вью исходя из текста и размеров изображения
-        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment)
+//        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment)
         
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)
         
-        return FeedViewModel.Cell.init(iconUrlString: profile.photo,
+        let isFullSized = revealdedPostIds.contains { (postId) -> Bool in
+            return postId == feedItem.postId
+        }
+        
+        //let isFullSized = revealdedPostIds.contains(feedItem.postId) // краткий вариант записи
+        
+        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment, isFullSizedPost: isFullSized)
+        
+        return FeedViewModel.Cell.init(postId: feedItem.postId,
+                                       iconUrlString: profile.photo,
                                        name: profile.name,
                                        date: dateTitle,
                                        text: feedItem.text,

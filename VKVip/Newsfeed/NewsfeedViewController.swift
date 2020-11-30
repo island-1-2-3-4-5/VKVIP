@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol NewsfeedDisplayLogicProtocol: class {
+protocol NewsfeedDisplayLogicProtocol: class { // class - под данный протокол можн оподписать только классы
   func displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData)
 }
 
@@ -46,6 +46,8 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol, Ne
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
     setup()
     // Регистрируем ячейку
     table.register(UINib(nibName: "NewsfeedCell", bundle: nil), forCellReuseIdentifier: NewsfeedCell.reuseId)
@@ -81,7 +83,9 @@ class NewsfeedViewController: UIViewController, NewsfeedDisplayLogicProtocol, Ne
     
     //MARK: - NewsfeedCodeCellDelegate - протокол ячейки
     func revealPost(for cell: NewsfeedCodeCell) {
-        print("hi")
+        guard let indexPath = table.indexPath(for: cell) else { return }
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        interactor?.makeRequest(request: Newsfeed.Model.Request.RequestType.revealPostIds(postId: cellViewModel.postId))
     }
 }
 
@@ -103,7 +107,7 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         // в ячейке создали функцию отображения, в которую мы передаем модель данных подписанную под протокол
         // модель будем создавать в NewsfeedModels
         cell.set(viewModel: cellViewModel)
-        
+//        cell.contentView.isUserInteractionEnabled = false
         cell.delegate = self
         
         return cell
@@ -118,7 +122,11 @@ extension NewsfeedViewController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let cellViewModel = feedViewModel.cells[indexPath.row]
+        
+        return cellViewModel.sizes.totalHeight
+    }
     
     
 }

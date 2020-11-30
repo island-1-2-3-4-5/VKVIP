@@ -19,6 +19,11 @@ class NewsfeedInteractor: NewsfeedBusinessLogicProtocol {
   var presenter: NewsfeedPresentationLogicProtocol?
   var service: NewsfeedService?
     
+    
+    
+    private var revealedPostIds = [Int]()
+    private var feedResponce: FeedResponse?
+    
     // создаем объект для запросов в NetworkDataFetcher
     private var fetcher: DataFetcherProtocol = NetworkDataFetcher(networking: NetworkService())
   
@@ -27,19 +32,26 @@ class NewsfeedInteractor: NewsfeedBusinessLogicProtocol {
       service = NewsfeedService()
     }
     
+
     switch request {
 
     case .getNewsfeed:
         fetcher.getFeed { [weak self] (feedResponce) in // [weak self] - используется при  работе с замыканиями для избежания утечки памяти
-          
-
-            guard let feedResponce = feedResponce else {return}
-            
-            // делаем запрос в презентер
-            self?.presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponce))
+            self?.feedResponce = feedResponce
+            self?.presentFeed()
         }
+    case .revealPostIds(let postId):
+        revealedPostIds.append(postId)
+        presentFeed()
+      
+    }
+  }
+    
+    private func presentFeed() {
+        guard let feedResponce = feedResponce else { return }
+        presenter?.presentData(response: Newsfeed.Model.Response.ResponseType.presentNewsfeed(feed: feedResponce, revealdedPostIds: revealedPostIds))
     }
     
   }
   
-}
+

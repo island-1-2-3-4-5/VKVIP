@@ -13,12 +13,12 @@ enum Newsfeed {
     struct Request {
       enum RequestType {
         case getNewsfeed
-        
+        case revealPostIds(postId: Int)
       }
     }
     struct Response {
       enum ResponseType {
-        case presentNewsfeed(feed: FeedResponse) // когда вызываем этот кейс, в качестве параметра у него будет идти объект типа FeedResponse из сетевого запроса
+        case presentNewsfeed(feed: FeedResponse, revealdedPostIds: [Int]) // когда вызываем этот кейс, в качестве параметра у него будет идти объект типа FeedResponse из сетевого запроса
       }
     }
     struct ViewModel {
@@ -34,6 +34,7 @@ enum Newsfeed {
 struct FeedViewModel {
     // эта структура должна соответствовать протоколу для заполения ячейки
     struct Cell: FeedCellViewModelProtocol {
+        var postId: Int
         var iconUrlString: String
         var name: String
         var date: String

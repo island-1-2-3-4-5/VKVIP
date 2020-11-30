@@ -23,7 +23,7 @@ struct Sizes: FeedCellSizes {
 
 
 protocol FeedCellLayoutCalculatorProtocol {
-    func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?) -> FeedCellSizes
+    func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?, isFullSizedPost: Bool) -> FeedCellSizes
 }
 
 final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
@@ -39,8 +39,8 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
 
     
     // вызывается в cellViewModel через протокол
-    func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?) -> FeedCellSizes {
-        
+    func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?, isFullSizedPost: Bool) -> FeedCellSizes {
+   
         // если эта переменная true, то будем в нашем посте отображать кнопку показать больше
         var showMoreTextButton = false
         
@@ -67,8 +67,10 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
             // максимальная высота которую можно отображать до кнопки скрыть
             let limitHeight = Constants.postLabelFont.lineHeight * Constants.minifiedPostLimitLines
             
+   
+            
             // если есть превышение по строкам, то показываем кнопку
-            if height > limitHeight {
+            if !isFullSizedPost && height > limitHeight {
                 height = Constants.postLabelFont.lineHeight * Constants.minifiedPostLines
                 showMoreTextButton = true
             }

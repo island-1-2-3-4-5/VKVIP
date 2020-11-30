@@ -237,7 +237,6 @@ final class NewsfeedCodeCell: UITableViewCell {
     //MARK:- FUNCTION
 
     @objc func moreTextButtonTouch() {
-        print("elrghep")
         delegate?.revealPost(for: self)
     }
     
@@ -413,7 +412,7 @@ final class NewsfeedCodeCell: UITableViewCell {
     //MARK: Первый слой
     func overlayFirstLayer() {
         // Добавляем cardView на экран
-        addSubview(cardView)
+        contentView.addSubview(cardView)
 
       //  cardView constraints
         cardView.fillSuperview(padding: Constants.cardInserts) // говорим cardView, что надо заполнить view с такими отступами: снизу 12 а по бокам 8 от contentView
