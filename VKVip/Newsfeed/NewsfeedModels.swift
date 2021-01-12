@@ -8,26 +8,26 @@
 import UIKit
 
 enum Newsfeed {
-   
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case getNewsfeed
-        case revealPostIds(postId: Int)
-      }
+    
+    enum Model {
+        struct Request {
+            enum RequestType {
+                case getNewsfeed
+                case revealPostIds(postId: Int)
+            }
+        }
+        struct Response {
+            enum ResponseType {
+                case presentNewsfeed(feed: FeedResponse, revealdedPostIds: [Int]) // когда вызываем этот кейс, в качестве параметра у него будет идти объект типа FeedResponse из сетевого запроса
+            }
+        }
+        struct ViewModel {
+            enum ViewModelData {
+                case displayNewsfeed(feedViewModel: FeedViewModel) // тут в качестве аасоциативного значения будет идти модель заполнения ячейки, которую описали ниже
+            }
+        }
     }
-    struct Response {
-      enum ResponseType {
-        case presentNewsfeed(feed: FeedResponse, revealdedPostIds: [Int]) // когда вызываем этот кейс, в качестве параметра у него будет идти объект типа FeedResponse из сетевого запроса
-      }
-    }
-    struct ViewModel {
-      enum ViewModelData {
-        case displayNewsfeed(feedViewModel: FeedViewModel) // тут в качестве аасоциативного значения будет идти модель заполнения ячейки, которую описали ниже
-      }
-    }
-  }
-  
+    
 }
 
 
@@ -45,8 +45,8 @@ struct FeedViewModel {
         var views: String?
         var photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?
         var sizes: FeedCellSizes
-
-
+        
+        
     }
     
     
@@ -54,7 +54,7 @@ struct FeedViewModel {
         var photoUrlString: String?
         var height: Int
         var width: Int
-            
+        
     }
     
     

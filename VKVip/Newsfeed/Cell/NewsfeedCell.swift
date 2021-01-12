@@ -34,7 +34,7 @@ protocol FeedCellSizes {
     var bottomViewFrame: CGRect { get }
     var totalHeight: CGFloat { get } // надо для heightForRowAt
     var moreTextButtonFrame: CGRect { get }
-
+    
 }
 
 // несет в себе данные по фотографиям

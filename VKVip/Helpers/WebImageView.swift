@@ -10,7 +10,14 @@ import UIKit
 // этот класс привязан к UIImageView в NewsfeedCell
 class WebImageView: UIImageView {
     
+    
+    
+    private var currentUrlString: String?
+    
     func set(imageURL: String?){
+        
+        
+        currentUrlString = imageURL
         guard let imageURL = imageURL, let url = URL(string: imageURL) else {
             self.image = nil
             return
@@ -21,17 +28,16 @@ class WebImageView: UIImageView {
         if let cachedResponce = URLCache.shared.cachedResponse(for: URLRequest(url: url)) {
             //если такое изображение уже имеется в нашем кэше, то тогда
             self.image = UIImage(data: cachedResponce.data)
-//            print("\(#function) -  from cache")
+            //            print("\(#function) -  from cache")
             return
         } // если такого изображения нет в кэше, то изображение необходимо поместить туда
         
         
-//        print("\(#function) -  from internet")
+        //        print("\(#function) -  from internet")
         // загружаем изображени я
         let dataTask = URLSession.shared.dataTask(with: url) {[weak self] (data, response, error) in // [weak self] - чтобы избежать утечек памяти
             DispatchQueue.main.async {
                 if let data = data, let response = response {
-                    self?.image = UIImage(data: data)
                     // делаем запись в кэш
                     self?.handleLoadedImage(data: data, response: response)
                 }
@@ -46,6 +52,10 @@ class WebImageView: UIImageView {
         guard let responseURL = response.url else { return }
         let cachedResponse = CachedURLResponse(response: response, data: data)
         URLCache.shared.storeCachedResponse(cachedResponse, for: URLRequest(url: responseURL))
+        
+        if responseURL.absoluteString == currentUrlString {
+            self.image = UIImage(data: data)
+        }
         
     }
     

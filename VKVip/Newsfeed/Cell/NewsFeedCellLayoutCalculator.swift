@@ -18,7 +18,7 @@ struct Sizes: FeedCellSizes {
     var attachementFrame: CGRect
     var bottomViewFrame: CGRect
     var totalHeight: CGFloat
-
+    
 }
 
 
@@ -27,7 +27,7 @@ protocol FeedCellLayoutCalculatorProtocol {
 }
 
 final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
- 
+    
     //  свойство отвечающее за ширину экрана
     private let screenWidth: CGFloat
     
@@ -36,11 +36,11 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         self.screenWidth = screenWidth
     }
     
-
+    
     
     // вызывается в cellViewModel через протокол
     func sizes(postText: String?, photoAttachment: FeedCellPhotoAttachmentViewModelProtocol?, isFullSizedPost: Bool) -> FeedCellSizes {
-   
+        
         // если эта переменная true, то будем в нашем посте отображать кнопку показать больше
         var showMoreTextButton = false
         
@@ -67,7 +67,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
             // максимальная высота которую можно отображать до кнопки скрыть
             let limitHeight = Constants.postLabelFont.lineHeight * Constants.minifiedPostLimitLines
             
-   
+            
             
             // если есть превышение по строкам, то показываем кнопку
             if !isFullSizedPost && height > limitHeight {
@@ -112,7 +112,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         //MARK:- BottomViewFrame
         // расположение элементов над bottomView
         let bottomViewTop = max(postLabelFrame.maxY, attachementFrame.maxY)
-
+        
         // расположение bottomView
         let bottomViewFrame = CGRect(origin: CGPoint(x: 0,
                                                      y: bottomViewTop),
@@ -122,7 +122,7 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
         
         
         //MARK:- TotalHeight
-
+        
         // bottomViewFrame.maxY - самый нижний элемент, Constants.cardInserts.bottom - отступ снизу
         let totalHeight = bottomViewFrame.maxY + Constants.cardInserts.bottom
         
@@ -133,5 +133,5 @@ final class FeedCellLayoutCalculator: FeedCellLayoutCalculatorProtocol {
                      bottomViewFrame: bottomViewFrame,
                      totalHeight: totalHeight)
     }
- 
+    
 }

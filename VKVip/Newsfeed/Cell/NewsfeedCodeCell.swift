@@ -44,17 +44,32 @@ final class NewsfeedCodeCell: UITableViewCell {
     
     
     
-    let postlabel: UILabel = {
-       let label = UILabel()
-        label.numberOfLines = 0
-        label.font = Constants.postLabelFont
-        label.textColor = #colorLiteral(red: 0.227329582, green: 0.2323184013, blue: 0.2370472848, alpha: 1)
-        return label
+    //    let postlabel: UILabel = {
+    //       let label = UILabel()
+    //        label.numberOfLines = 0
+    //        label.font = Constants.postLabelFont
+    //        label.textColor = #colorLiteral(red: 0.227329582, green: 0.2323184013, blue: 0.2370472848, alpha: 1)
+    //        return label
+    //    }()
+    
+    let postlabel: UITextView = {
+        let textView = UITextView()
+        textView.font = Constants.postLabelFont
+        textView.isScrollEnabled = true
+        textView.isSelectable = true
+        textView.isUserInteractionEnabled = true
+        textView.isEditable = false
+        
+        let padding = textView.textContainer.lineFragmentPadding
+        textView.textContainerInset = UIEdgeInsets.init(top: 0, left: -padding, bottom: 0, right: -padding)
+        // позволяем видеть ссылки
+        textView.dataDetectorTypes = UIDataDetectorTypes.all
+        return textView
     }()
     
     // кнопка раскрытия большого текста
     let moreTextButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         button.setTitleColor(#colorLiteral(red: 0.4012392163, green: 0.6231879592, blue: 0.8316264749, alpha: 1), for: .normal)
         button.contentHorizontalAlignment = .left
@@ -78,14 +93,14 @@ final class NewsfeedCodeCell: UITableViewCell {
     //MARK: Третий слой TopView
     
     let iconImageView: WebImageView = {
-       let imageView = WebImageView()
+        let imageView = WebImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     
     let nameLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
         label.numberOfLines = 0
@@ -97,7 +112,7 @@ final class NewsfeedCodeCell: UITableViewCell {
     
     
     let dateLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.5768421292, green: 0.6187390685, blue: 0.664434731, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12)
@@ -137,7 +152,7 @@ final class NewsfeedCodeCell: UITableViewCell {
     //MARK: Четвертый слой на bottomView
     
     let likesImage: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "like")
         return imageView
@@ -165,7 +180,7 @@ final class NewsfeedCodeCell: UITableViewCell {
     }()
     
     let likesLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = #colorLiteral(red: 0.5768421292, green: 0.6187390685, blue: 0.664434731, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
@@ -199,7 +214,7 @@ final class NewsfeedCodeCell: UITableViewCell {
         label.lineBreakMode = .byClipping
         return label
     }()
-
+    
     
     //Переиспользование ячеек
     override func prepareForReuse() {
@@ -231,11 +246,11 @@ final class NewsfeedCodeCell: UITableViewCell {
         overlayFourthLayerOnBottomViewViews() // четвертый слой на bottomViewViews
     }
     
-
+    
     
     
     //MARK:- FUNCTION
-
+    
     @objc func moreTextButtonTouch() {
         delegate?.revealPost(for: self)
     }
@@ -244,8 +259,8 @@ final class NewsfeedCodeCell: UITableViewCell {
     //MARK: SET
     // передаем данные переменным из протокола FeedCellViewModel
     // Этот метод будем вызывать в NewsfeedViewController в cellForRowAt
-    func set(viewModel: FeedCellViewModelProtocol){
-
+    func set(viewModel: FeedCellViewModelProtocol){ // МОДЕЛЬ ДОЛЖНА БЫТЬ ПОДПИСАНА ПОД ПРОТОКОЛ FeedCellViewModelProtocol
+        
         iconImageView.set(imageURL: viewModel.iconUrlString)
         nameLabel.text = viewModel.name
         dateLabel.text = viewModel.date
@@ -260,7 +275,7 @@ final class NewsfeedCodeCell: UITableViewCell {
         postImageView.frame = viewModel.sizes.attachementFrame
         bottomView.frame = viewModel.sizes.bottomViewFrame
         moreTextButton.frame = viewModel.sizes.moreTextButtonFrame
-
+        
         
         if let photoAttachment = viewModel.photoAttachment {
             postImageView.set(imageURL: photoAttachment.photoUrlString)
@@ -326,24 +341,24 @@ final class NewsfeedCodeCell: UITableViewCell {
         
         // commentsView constraints
         commentsView.anchor(top: bottomView.topAnchor,
-                         leading: likesView.trailingAnchor,
-                         bottom: nil,
-                         trailing: nil,
-                         size: CGSize(width: Constants.bottomViewViewWidth, height: Constants.bottomViewViewHeight))
-        
-        // sharesView constraints
-        sharesView.anchor(top: bottomView.topAnchor,
-                            leading: commentsView.trailingAnchor,
+                            leading: likesView.trailingAnchor,
                             bottom: nil,
                             trailing: nil,
                             size: CGSize(width: Constants.bottomViewViewWidth, height: Constants.bottomViewViewHeight))
         
+        // sharesView constraints
+        sharesView.anchor(top: bottomView.topAnchor,
+                          leading: commentsView.trailingAnchor,
+                          bottom: nil,
+                          trailing: nil,
+                          size: CGSize(width: Constants.bottomViewViewWidth, height: Constants.bottomViewViewHeight))
+        
         // viewsView constraints
         viewsView.anchor(top: bottomView.topAnchor,
-                          leading: nil,
-                          bottom: nil,
-                          trailing: bottomView.trailingAnchor,
-                          size: CGSize(width: Constants.bottomViewViewWidth, height: Constants.bottomViewViewHeight))
+                         leading: nil,
+                         bottom: nil,
+                         trailing: bottomView.trailingAnchor,
+                         size: CGSize(width: Constants.bottomViewViewWidth, height: Constants.bottomViewViewHeight))
     }
     
     
@@ -392,7 +407,7 @@ final class NewsfeedCodeCell: UITableViewCell {
         topView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -8).isActive = true
         topView.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 8).isActive = true
         topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight).isActive = true
-
+        
         
         // postlabel constraints
         // не нужно, так как размеры задаются динамически
@@ -413,8 +428,8 @@ final class NewsfeedCodeCell: UITableViewCell {
     func overlayFirstLayer() {
         // Добавляем cardView на экран
         contentView.addSubview(cardView)
-
-      //  cardView constraints
+        
+        //  cardView constraints
         cardView.fillSuperview(padding: Constants.cardInserts) // говорим cardView, что надо заполнить view с такими отступами: снизу 12 а по бокам 8 от contentView
         
     }
@@ -425,5 +440,5 @@ final class NewsfeedCodeCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+    
 }

@@ -9,11 +9,11 @@
 import UIKit
 
 protocol NewsfeedPresentationLogicProtocol {
-  func presentData(response: Newsfeed.Model.Response.ResponseType)
+    func presentData(response: Newsfeed.Model.Response.ResponseType)
 }
 
 class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
-  weak var viewController: NewsfeedDisplayLogicProtocol?
+    weak var viewController: NewsfeedDisplayLogicProtocol?
     
     
     
@@ -28,31 +28,31 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
         dt.dateFormat = "d MMM 'в' HH:mm"
         return dt
     }()
-  
+    
     
     
     //MARK: - presentData
-  func presentData(response: Newsfeed.Model.Response.ResponseType) {
-  
-
-    switch response {
-
-//MARK: Сюда приходят данные
-    case .presentNewsfeed(feed: let feed, let revealdedPostIds): // let feed - это ассоциативное значение, которое мы передали ранее
+    func presentData(response: Newsfeed.Model.Response.ResponseType) {
         
-        let cells = feed.items.map { (feedItem) in
-            // эта функция конвертирует данные из сети(FeedResponse) в данные для ячейки
-            cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealdedPostIds: revealdedPostIds)
+        
+        switch response {
+        
+        //MARK: Сюда приходят данные
+        case .presentNewsfeed(feed: let feed, let revealdedPostIds): // let feed - это ассоциативное значение, которое мы передали ранее
+            
+            let cells = feed.items.map { (feedItem) in
+                // эта функция конвертирует данные из сети(FeedResponse) в данные для ячейки
+                cellViewModel(from: feedItem, profiles: feed.profiles, groups: feed.groups, revealdedPostIds: revealdedPostIds)
+                
+            }
+            // инициализируем объект модели
+            let feedViewModel = FeedViewModel.init(cells: cells) // у структур есть встроенный инициализатор
+            
+            //MARK: Высылаем данные
+            viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayNewsfeed(feedViewModel: feedViewModel))
             
         }
-    // инициализируем объект модели
-        let feedViewModel = FeedViewModel.init(cells: cells) // у структур есть встроенный инициализатор
-    
-        //MARK: Высылаем данные
-        viewController?.displayData(viewModel: Newsfeed.Model.ViewModel.ViewModelData.displayNewsfeed(feedViewModel: feedViewModel))
-    
     }
-  }
     
     
     
@@ -65,7 +65,7 @@ class NewsfeedPresenter: NewsfeedPresentationLogicProtocol {
         
         let photoAttachment = self.photoAttachment(feedItem: feedItem) // заполняем фотки
         // генерируем размеры вью исходя из текста и размеров изображения
-//        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment)
+        //        let sizes = cellLayoutCalculator.sizes(postText: feedItem.text, photoAttachment: photoAttachment)
         
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatter.string(from: date)

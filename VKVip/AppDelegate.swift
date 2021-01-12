@@ -30,14 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthServiceDelegateProtoc
         window?.makeKeyAndVisible()
         return true
     }
-
+    
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         VKSdk.processOpen(url, fromApplication: UIApplication.OpenURLOptionsKey.sourceApplication.rawValue)
         return true
     }
     
-
-
+    
+    
     // MARK: AuthServiceDelegate
     
     func authServiceShouldShow(_ viewController: UIViewController) {
@@ -55,6 +55,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, AuthServiceDelegateProtoc
     func authServiceDidSignInFail() {
         print(#function)
     }
-
+    
 }
 

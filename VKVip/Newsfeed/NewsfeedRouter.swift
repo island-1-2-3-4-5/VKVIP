@@ -8,13 +8,13 @@
 import UIKit
 
 protocol NewsfeedRoutingLogicProtocol {
-
+    
 }
 
 class NewsfeedRouter: NSObject, NewsfeedRoutingLogicProtocol {
-
-  weak var viewController: NewsfeedViewController?
-  
-  // MARK: Routing
-  
+    
+    weak var viewController: NewsfeedViewController?
+    
+    // MARK: Routing
+    
 }

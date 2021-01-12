@@ -120,6 +120,7 @@
 				B040B9E92562567000145A47 /* Assets.xcassets */,
 				B040B9EB2562567000145A47 /* LaunchScreen.storyboard */,
 				B040B9EE2562567000145A47 /* Info.plist */,
+				B0607186256E95A7005CBF0A /* Constraints.swift */,
 			);
 			path = VKVip;
 			sourceTree = "<group>";
@@ -186,7 +187,6 @@
 				B040BA41256257D000145A47 /* UIViewController + Storyboard.swift */,
 				B094C933256299130074569E /* WebImageView.swift */,
 				B0607180256E3BF9005CBF0A /* String + Height.swift */,
-				B0607186256E95A7005CBF0A /* Constraints.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
